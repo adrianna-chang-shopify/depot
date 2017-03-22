@@ -9,6 +9,21 @@ class ProductTest < ActiveSupport::TestCase
                 image_url: image_url)
   end
 
+  test "title must be at least 10 chars long" do
+    good_product = Product.new(title: "My Book Title",
+                          description: "yyy",
+                          price: 1,
+                          image_url: "fred.gif")
+    assert good_product.valid?
+
+    bad_product = Product.new(title: "My Book",
+                          description: "yyy",
+                          price: 1,
+                          image_url: "fred.gif")
+    assert bad_product.invalid?
+    assert_equal ["is too short (minimum is 10 characters)"], bad_product.errors[:title]
+  end
+
   test "product attributes must not be empty" do
   	product = Product.new
   	assert product.invalid?
@@ -26,7 +41,7 @@ class ProductTest < ActiveSupport::TestCase
 
   	product.price = 0
   	assert product.invalid?
-  	assert_equal ["must be grater than or equal to 0.01"], product.errors[:price]
+  	assert_equal ["must be greater than or equal to 0.01"], product.errors[:price]
   	product.price = 1
   	assert product.valid?
   end
@@ -50,7 +65,6 @@ class ProductTest < ActiveSupport::TestCase
                           price: 1,
                           image_url: "fred.gif")
     assert product.invalid?
-    assert_equal ["has already been taken"], product.errors[:title]
+    assert_equal ["must be unique. Show some originality!"], product.errors[:title]
   end
-
 end
