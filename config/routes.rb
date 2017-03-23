@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :line_items
+  resources :carts
   #Define root path and add store_index_url to ensure that existing code/tests continue to work
   root 'store#index', as: 'store_index'
 
