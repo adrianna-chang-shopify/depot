@@ -9,6 +9,7 @@ default: &default
   pool: 5
   timeout: 5000
 
+#Development databse (programming work done here)
 development:
   <<: *default
   database: db/development.sqlite3
@@ -20,6 +21,7 @@ test:
   <<: *default
   database: db/test.sqlite3
 
+#Production database (db application uses when we put it online)
 production:
   <<: *default
   database: db/production.sqlite3
