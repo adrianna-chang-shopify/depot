@@ -29,8 +29,9 @@ class LineItemsController < ApplicationController
   def create
     session[:counter] = 0
     product = Product.find(params[:product_id]) #no @ symbol bc this is a local variable (view doesn't need to access it)
-    #build relationship between @cart object and product
-    @line_item = @cart.line_items.build(product: product)
+   #make use of new method we created in cart model - increment quantity of product if it's already in cart, or build relationship
+   #between line_item and product if it's not
+   @line_item = @cart.add_product(product)
 
     respond_to do |format|
       if @line_item.save
