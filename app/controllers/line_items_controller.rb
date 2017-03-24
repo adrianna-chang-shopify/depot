@@ -1,6 +1,6 @@
 class LineItemsController < ApplicationController
   include CurrentCart
-  #use the method we defined in current_cart.rb (set_cart())
+  #use the method we defined in current_cart.rb (set_cart()); set_cart BEFORE creating line item
   before_action :set_cart, only: [:create]
   before_action :set_line_item, only: [:show, :edit, :update, :destroy]
 
@@ -27,6 +27,7 @@ class LineItemsController < ApplicationController
   # POST /line_items
   # POST /line_items.json
   def create
+    session[:counter] = 0
     product = Product.find(params[:product_id]) #no @ symbol bc this is a local variable (view doesn't need to access it)
     #build relationship between @cart object and product
     @line_item = @cart.line_items.build(product: product)
