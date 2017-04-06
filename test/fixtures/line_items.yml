@@ -7,3 +7,8 @@ one:
 two:
   product: two
   cart: two
+
+ruby:
+  product_id: products(:ruby).id
+  cart_id: 1
+  quantity: 2
