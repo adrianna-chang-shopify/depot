@@ -18,7 +18,7 @@ class OrdersControllerTest < ActionDispatch::IntegrationTest
 
   test "should get new" do
     #create line item so that cart isn't empty
-    post line_items_url, params: {product_id: products(:ruby).id}
+    post line_items_url, params: { product_id: products(:ruby).id }
 
     get new_order_url
     assert_response :success
